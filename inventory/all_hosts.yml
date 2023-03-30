@@ -1,0 +1,10 @@
+redis-server { ansible_host: }
+redis-slave1 { ansible_host: }
+redis slave2 { ansible_host: }
+consul_server { ansible_host: 192.168.109.218 }
+
+
+192.168.109.218 consul
+192.168.109.219 redis-server
+192.168.109.220 slave1
+192.168.109.221 slave2
