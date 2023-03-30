@@ -1,10 +1,27 @@
-redis-server { ansible_host: }
-redis-slave1 { ansible_host: }
-redis slave2 { ansible_host: }
-consul_server { ansible_host: 192.168.109.218 }
+---
+all:
+    vars:
+      ansible_user: vagrant
+      ansible_password: vagrant
+    children:
+      consul-server:
+        hosts:
+          consul:
+            ansible_connection: ssh 
+            ansible_host: 192.168.109.218
+      consul-agent:
+        children:
+          redis-masters:
+            hosts:
+              redis-master:
+                ansible_connection: ssh 
+                ansible_host: 10.10.0.10
+          redis-slave:
+            hosts:
+              redis-slave1:
+                ansible_connection: ssh 
+                ansible_host: 10.10.0.11
+              redis-slave2:
+                ansible_connection: ssh 
+                ansible_host: 10.10.0.12
 
-
-192.168.109.218 consul
-192.168.109.219 redis-server
-192.168.109.220 slave1
-192.168.109.221 slave2
