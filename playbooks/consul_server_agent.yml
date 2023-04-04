@@ -1,6 +1,6 @@
 ---
 - name: configure consul servers
-  hosts: consul
+  hosts: consul-server
   become: true
   roles:
     - role: consul_server

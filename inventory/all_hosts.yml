@@ -11,7 +11,7 @@ company:
 
       consul-agent:
 
-      redis-masters:
+      redis-master:
         hosts:
           192.168.109.219
       redis-slave:
