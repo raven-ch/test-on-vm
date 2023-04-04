@@ -9,15 +9,15 @@ company:
       hosts:
         192.168.109.218:
 
-      consul-agent:
+    consul-agent:
 
-      redis-master:
-        hosts:
-          192.168.109.219
-      redis-slave:
-        hosts:
-          192.168.109.220:
-            id: 1
-          192.168.109.221:
-            id: 2
+    redis-master:
+      hosts:
+        192.168.109.219
+    redis-slave:
+      hosts:
+        192.168.109.220:
+          id: 1
+        192.168.109.221:
+          id: 2
 
