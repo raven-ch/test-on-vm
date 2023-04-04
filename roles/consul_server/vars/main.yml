@@ -1,0 +1,12 @@
+---
+# vars file for consul-server-cluster
+consul_version: 1.15.1
+# consul storage
+consul_data_path: /var/lib/consul
+consul_datacenter: dc1
+acl_enable: true
+consul_acl_default_policy: deny
+consul_keygenerate_file: /opt/consul_keygenerate
+consul_acl_file: /opt/acl_token
+local_acl_dest: /tmp/consul_acl
+local_key_dest: /tmp/consul_key

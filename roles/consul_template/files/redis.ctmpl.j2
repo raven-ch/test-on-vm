@@ -1,0 +1,21 @@
+{
+    "service": {
+        "name": "redis",
+        "port": 6379,
+        "tags": [
+            "redis",
+            "db",
+            "urlprefix-/db"
+        ],
+
+        token = "{{consul_acl_token}}",
+
+        "check": {
+            "id": "redis_status",
+            "name": "Redis Status",
+            "args": ["/etc/consul.d/check_scripts/redis_check.sh"],
+            "interval": "10s",
+            "timeout": "5s"
+        }
+    }
+}

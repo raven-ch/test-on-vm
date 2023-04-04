@@ -1,0 +1,18 @@
+---
+- name: Restart Keepalived
+  become: true
+  ansible.builtin.service:
+    name: keepalived
+    state: restarted
+    daemon_reload: yes
+  when: not initial_dry_run
+
+- name: Reload Keepalived
+  become: true
+  ansible.builtin.service:
+    name: keepalived
+    state: reloaded
+    daemon_reload: yes
+  when: not initial_dry_run
+
+...

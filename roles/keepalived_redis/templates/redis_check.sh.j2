@@ -1,0 +1,6 @@
+#!/bin/bash
+###/etc/keepalived/scripts/redis_check.sh
+ALIVE=$(/usr/bin/redis-cli info |grep -Ec 'role:master')
+if [ $ALIVE != 1 ]; then
+    exit 1
+fi

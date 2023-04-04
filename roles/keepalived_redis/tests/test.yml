@@ -1,0 +1,22 @@
+---
+- name: configure keepalived-master redis
+  hosts: keepalived-master
+  become: yes
+  gather_facts: yes
+
+  roles:
+    - role: keepalived-redis
+  vars:
+    keepalived_virtual_ip_address: "10.10.0.100"
+    keepalived_state: 'MASTER'
+
+- name: configure keepalived redis
+  hosts: keepalived-backup
+  become: yes
+  gather_facts: yes
+
+  roles:
+    - role: keepalived-redis
+  vars:
+    keepalived_virtual_ip_address: "10.10.0.100"
+    keepalived_state: 'BACKUP'

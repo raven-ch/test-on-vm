@@ -1,0 +1,95 @@
+
+global_defs {
+{% if keepalived_activate_script %}
+    script_user {{ keepalived_script_user }} {{ keepalived_script_group }}
+{% endif %}
+{% if keepalived_set_script_security_flag %}
+    enable_script_security
+{% endif %}
+{% if keepalived_notification %}
+    notification_email {
+        {{ keepalived_notification_email }} 
+    }
+    notification_email_from {{ keepalived_notification_email_from }}
+    smtp_server {{ keepalived_smtp_server }}
+    smtp_connect_timeout 30
+{% endif %}
+{% if keepalived_router_id is defined %}
+    router_id {{ keepalived_router_id }}
+{% endif %}
+{% if keepalived_max_auto_priority is defined %}
+    max_auto_priority {{ keepalived_max_auto_priority }}
+{% endif %}
+}
+
+{% if keepalived_enable_process_tracking %}
+vrrp_track_process {{ keepalived_track_process }} {
+    process {{ keepalived_track_process }}
+{% if keepalived_weight is defined %}
+    weight {{ keepalived_weight }}
+{% endif %}
+    quorum 1
+    delay 2
+}
+{% endif %}
+
+{% if keepalived_activate_script %}
+vrrp_script {{ keepalived_script_name }} {
+    script "{{ keepalived_script_command }}"
+{% if keepalived_check_interval is defined %}
+    interval {{ keepalived_check_interval|d('2') }}
+{% endif %}
+{% if keepalived_check_weight is defined %}
+    weight {{ keepalived_check_weight }}
+{% endif %}
+{% if keepalived_check_timeout is defined %}
+    timeout {{ keepalived_check_timeout }}
+{% endif %}
+{% if keepalived_check_fall is defined %}
+    fall {{ keepalived_check_fall }}
+{% endif %}
+{% if keepalived_check_rise is defined %}
+    rise {{ keepalived_check_rise }}
+{% endif %}
+}
+{% endif %}
+
+vrrp_instance VI_1 {
+    state {{ keepalived_state }}
+    interface {{ keepalived_interface }}
+    virtual_router_id {{ keepalived_virtual_router_id }}
+    priority {{ keepalived_priority }}
+{% if keepalived_activate_unicast %}
+    unicast_src_ip {{ keepalived_unicast_src_ip }}
+    unicast_peer {
+{% for keepalived_unicast_peer in keepalived_unicast_peers %}
+        {{ keepalived_unicast_peer }}
+{% endfor %}
+    }
+{% endif %}
+    virtual_ipaddress {
+{% if keepalived_virtual_ipaddress_configs is defined %}
+{% for config in keepalived_virtual_ipaddress_configs %}
+        {{ config }}
+{% endfor %}
+{% else %}
+        {{ keepalived_virtual_ipaddress_config }}
+{% endif %}
+    }
+    authentication {
+        auth_type PASS
+        auth_pass {{ keepalived_auth_pass }}
+    }
+{% if keepalived_enable_process_tracking %}
+    track_process {
+        {{ keepalived_track_process }}
+    }
+{% endif %}
+{% if keepalived_activate_script %}
+    track_script {
+        {{ keepalived_script_name }}
+    }
+{% endif %}
+
+}
+

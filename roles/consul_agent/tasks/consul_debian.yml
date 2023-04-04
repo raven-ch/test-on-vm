@@ -1,0 +1,52 @@
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Installing addon package  
+  apt: 
+    name: "{{ addon_package }}"
+    state: present 
+
+- name: Creating consul user and directories
+  include_tasks: consul_user.yml
+
+- name: Download consul 
+  unarchive: 
+    src: "{{ consul_url }}"
+    dest: "{{ consul_bin_path }}"
+    owner: "{{ consul_binary_owner }}"
+    group: "{{ consul_binary_group }}"
+    remote_src: yes
+
+- name: Send agent configuration file
+  template:
+    src: "{{ consul_config_src }}"
+    dest: "{{ consul_config_dest }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: "{{ consul_service_mode }}"
+
+- name: Send server service file
+  template:
+    src: "{{ consul_service_src }}"
+    dest: "{{ consul_service_dest }}"
+    mode: "{{ consul_service_mode }}"
+  notify: reload_systemd
+
+- name: Running handlers for cluster nodes
+  meta: flush_handlers
+
+- name: Add symlink for systemd
+  file:
+    src: "{{ consul_service_dest }}"
+    dest: "{{ consul_symlink_dest }}"
+    state: link
+
+- name: Enable consul service
+  service:
+    name: "{{ consul_service_name }}"
+    enabled: "yes"
+
+- name: Consul acl configuration 
+  include_tasks: consul_acl.yml
+  when: acl_enable|bool == true

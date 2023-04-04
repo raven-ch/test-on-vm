@@ -1,0 +1,16 @@
+---
+# vars file for consul-server-cluster
+consul_version: 1.15.1
+# consul storage
+consul_data_path: /var/lib/consul
+consul_datacenter: dc1
+acl_enable: true
+consul_acl_default_policy: deny
+consul_keygenerate_file: /opt/consul_keygenerate
+consul_acl_file: /opt/acl_token
+# key 
+encryption_key: "JxwD3wtNzCSWUU9wqy9TADPEnAclrqugKENOZ+vWG7U="
+# consul token acl
+consul_acl_token: 09ad9b5e-7eb6-e49a-b7ec-9b6a21004c66
+# servers ip
+consul_server_ip: 10.10.0.2

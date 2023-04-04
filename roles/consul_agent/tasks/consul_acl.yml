@@ -1,0 +1,8 @@
+- name: Send acl configuration
+  template:
+    src: "{{ consul_acl_src }}"
+    dest: "{{ consul_acl_dest }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: "{{ consul_service_mode }}"
+  notify: reload_systemd

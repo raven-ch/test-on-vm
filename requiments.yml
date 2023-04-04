@@ -1,0 +1,37 @@
+---
+roles:
+  # Install a role from Ansible Galaxy.
+  - name: keepalived-redis
+    version: v1.2.6
+  - name: weareinteractive.sudo
+    version: 1.14.1
+  - name: mariadb
+    src: https://gitlab.goodcustomers.ru/ansible-roles/mariadb.git
+    scm: git
+    version: master
+  - name: geerlingguy.ntp
+    version: 2.2.0
+  - src: https://github.com/mrlesmithjr/ansible-netplan
+    name: mrlesmithjr.ansible-netplan
+    version: v0.3.0
+  - src: geerlingguy.java
+    version: 1.10.0
+  - src: https://github.com/sleighzy/ansible-zookeeper
+    scm: git
+    name: sleighzy.zookeeper
+    version: v1.1.1
+  - src: https://github.com/AlexeySetevoi/ansible-clickhouse.git
+    version: 1.8.1
+    name: alexeysetevoi.clickhouse
+  - src: https://github.com/stackhpc/ansible-role-libvirt-vm/archive/refs/tags/v1.14.0.tar.gz
+    name: stackhpc.libvirt-vm
+  - src: geerlingguy.rabbitmq
+    version: 1.0.0
+  - src: davidwittman.redis
+    version: 1.2.9
+
+collections:
+  - name: community.zabbix
+    version: 1.5.1
+  - name: geerlingguy.php_roles
+

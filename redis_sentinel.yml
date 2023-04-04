@@ -1,0 +1,14 @@
+---
+- name: configure the master redis server
+  hosts: redis-master
+  become: true
+  roles:
+    - role: redis
+
+- name: configure redis slaves
+  hosts: redis-slave
+  become: true
+  vars:
+    - redis_replicaof: "{{ hostvars['redis-master'].ansible_eth1.ipv4.address }} {{ redis_port }}"
+  roles:
+    - role: redis

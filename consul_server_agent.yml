@@ -1,0 +1,14 @@
+---
+- name: configure consul servers
+  hosts: consul
+  become: true
+  roles:
+    - role: consul_server
+
+- name: configure consul-agent and consul-template
+  hosts: consul-agent
+  become: true
+  roles:
+    - role: consul_agent
+    - role: consul_template
+    

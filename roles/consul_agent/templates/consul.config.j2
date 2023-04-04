@@ -1,0 +1,19 @@
+{
+    "server": {{ consul_server }},
+    "bind_addr": "{{ consul_ip }}",
+    "log_level": "{{ consul_loglevel }}",
+    "enable_syslog": {{ consul_enable_syslog }},
+    "datacenter": "{{ consul_datacenter }}",
+    "addresses" : {
+        "http": "{{ consul_http_address }}"
+    },
+    "node_name": "{{ consul_nodename }}",
+    "data_dir": "{{ consul_data_path }}",
+    "leave_on_terminate": {{ consul_leave }},
+    "encrypt": "{{ encryption_key }}",
+    "ui": {{ consul_client_ui }},
+    "rejoin_after_leave": {{ consul_rejoin }},
+    "retry_join": [{%for host in groups['consul-server']%}
+        "{{hostvars[host]['ansible_default_ipv4']['address']}}"{%if not loop.last%},
+        {%endif%}{%endfor%}]
+}
