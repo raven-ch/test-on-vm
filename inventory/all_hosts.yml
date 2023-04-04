@@ -1,27 +1,23 @@
 ---
 company:
-    vars:
-      ansible_user: support
-      ansible_password: elephant
+  vars:
+    ansible_user: support
+    ansible_password: elephant
     
-    children:
-      consul-server:
-        hosts:
-          consul:
-            192.168.109.218:
+  children:
+    consul-server:
+      hosts:
+        192.168.109.218:
 
       consul-agent:
 
       redis-masters:
         hosts:
-          redis-master:
-            192.168.109.219
+          192.168.109.219
       redis-slave:
         hosts:
-          redis-slave1:
-            192.168.109.220:
-              id: 1
-          redis-slave2:
-            192.168.109.221:
-              id: 2
+          192.168.109.220:
+            id: 1
+          192.168.109.221:
+            id: 2
 
