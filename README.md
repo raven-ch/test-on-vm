@@ -49,4 +49,4 @@ Redis Sentinel сам мониторит, настраивает и перекл
 В ситуации описанной выше возможна потеря подключений, но keepalived -
 в случае недоступности master’a  - переназначает виртуальный адрес на другую ноду, снижая шанс потери подключений\данных.
 ```
-
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=jwenjian.visitor-badge&left_text=My%20Page%20Visitors)
